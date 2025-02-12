@@ -401,6 +401,17 @@
       "description": "The time when the system was booted.",
       "type": "timestamp_t"
     },
+    "boot_uid": {
+      "caption": "Boot UID",
+      "description": "A unique identifier of the device that changes after every reboot. For example, the value of <code>/proc/sys/kernel/random/boot_id</code> from Linux's procfs.",
+      "type": "string_t",
+      "references": [
+        {
+          "description": "Linux kernel's documentation",
+          "url": "https://docs.kernel.org/admin-guide/sysctl/kernel.html#random"
+        }
+      ]
+    },
     "boundary": {
       "caption": "Boundary",
       "description": "The boundary of the connection, normalized to the caption of 'boundary_id'. In the case of 'Other', it is defined by the event source. <p> For cloud connections, this translates to the traffic-boundary(same VPC, through IGW, etc.). For traditional networks, this is described as Local, Internal, or External.</p>",
@@ -3064,7 +3075,7 @@
     "lineage": {
       "caption": "Lineage",
       "description": "The lineage of the process, represented by a list of paths for each ancestor process. For example: <code>['/usr/sbin/sshd', '/usr/bin/bash', '/usr/bin/whoami']</code>.",
-      "type": "string_t",
+      "type": "file_path_t",
       "is_array": true
     },
     "load_balancer": {
@@ -3312,7 +3323,8 @@
           "description": "RFC 5322",
           "url": "https://www.rfc-editor.org/rfc/rfc5322"
         }
-      ]
+      ],
+      "observable": 45
     },
     "metadata": {
       "caption": "Metadata",
@@ -3388,7 +3400,7 @@
     },
     "network_interfaces": {
       "caption": "Network Interfaces",
-      "description": "The network interfaces that are associated with the device, one for each unique MAC address/IP address/hostname/name combination.<p><b>Note:</b> The first element of the array is the network information that pertains to the event.</p>",
+      "description": "The physical or virtual network interfaces that are associated with the device, one for each unique MAC address/IP address/hostname/name combination.<p><b>Note:</b> The first element of the array is the network information that pertains to the event.</p>",
       "type": "network_interface",
       "is_array": true
     },
@@ -5620,6 +5632,13 @@
         "observable": 7,
         "caption": "File Name",
         "description": "File name. For example:<br><code>text-file.txt</code>.",
+        "type": "string_t",
+        "type_name": "String"
+      },
+      "file_path_t": {
+        "observable": 42,
+        "caption": "File Path",
+        "description": "The full path to the file. For example: For example:<br><code>c:\\windows\\system32\\svchost.exe</code>.",
         "type": "string_t",
         "type_name": "String"
       },
